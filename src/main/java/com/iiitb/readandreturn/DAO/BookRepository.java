@@ -14,4 +14,5 @@ public interface BookRepository extends JpaRepository<Book, Long>{
 	// pagebale helps in adding page and size to the url.
 	Page<Book> findByTitleContaining(@RequestParam("title") String title, Pageable pagable);
 	Page<Book> findByAuthorContaining(@RequestParam("author") String author, Pageable pagable);
+	Page<Book> findByCategory(@RequestParam("category") String category, Pageable pagable);
 }
