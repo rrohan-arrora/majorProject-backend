@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.iiitb.readandreturn.entity.Book;
 
-@CrossOrigin("http://localhost:3000")
 public interface BookRepository extends JpaRepository<Book, Long>{
 	
 	// pagebale helps in adding page and size to the url.
