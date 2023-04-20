@@ -27,7 +27,7 @@ public class Checkout {
 	}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long id;
 	
