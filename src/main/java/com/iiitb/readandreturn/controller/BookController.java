@@ -37,6 +37,14 @@ public class BookController {
 		return bookService.checkoutBook(userEmail, bookId);
 	}
 	
+	@PutMapping("/secure/return")
+    public void returnBook(@RequestHeader(value = "Authorization") String token,
+                           @RequestParam Long bookId) throws Exception {
+        String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
+        bookService.returnBook(userEmail, bookId);
+    }
+	
+	
 	@GetMapping("/secure/currentLoans/count")
     public int currentLoansCount(@RequestHeader(value="Authorization") String token) {
 		String userEmail = ExtractJWT.payloadJWTExtraction(token, "\"sub\"");
