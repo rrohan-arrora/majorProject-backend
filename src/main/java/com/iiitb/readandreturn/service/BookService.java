@@ -1,8 +1,13 @@
 package com.iiitb.readandreturn.service;
 
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +17,7 @@ import com.iiitb.readandreturn.DAO.BookRepository;
 import com.iiitb.readandreturn.DAO.CheckoutRepository;
 import com.iiitb.readandreturn.entity.Book;
 import com.iiitb.readandreturn.entity.Checkout;
+import com.iiitb.readandreturn.responsemodels.ShelfCurrentLoansResponse;
 
 @Service
 @Transactional
@@ -61,4 +67,43 @@ public class BookService {
 	public int currentLoansCount(String userEmail) {
         return checkoutRepository.findBooksByUserEmail(userEmail).size();
     }
+	
+	public List<Checkout> currentLoans(String userEmail) {
+        return checkoutRepository.findBooksByUserEmail(userEmail);
+    }
+	
+	 public List<ShelfCurrentLoansResponse> currentLoansByUser(String userEmail) throws Exception {
+		 List<ShelfCurrentLoansResponse> shelfCurrentLoansResponses = new ArrayList<>();
+
+	     List<Checkout> checkoutList = currentLoans(userEmail);
+	     List<Long> bookIdList = new ArrayList<>();
+
+	     for (Checkout i: checkoutList) {
+	    	 bookIdList.add(i.getBookId());
+	     }
+
+	     List<Book> books = bookRepository.findBooksByBookIds(bookIdList);
+
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+	        for (Book book : books) {
+//	            Optional<Checkout> checkout = checkoutList.stream()
+//	                    .filter(x -> x.getBookId() == book.getId()).findFirst();
+	        	Checkout checkout  = checkoutRepository.findByUserEmailAndBookId(userEmail, book.getId());
+
+//	            if (checkout.isPresent()) {
+
+	                Date d1 = sdf.parse(checkout.getReturnDate());
+	                Date d2 = sdf.parse(LocalDate.now().toString());
+
+	                TimeUnit time = TimeUnit.DAYS;
+
+	                long difference_In_Time = time.convert(d1.getTime() - d2.getTime(),
+	                        TimeUnit.MILLISECONDS);
+
+	                shelfCurrentLoansResponses.add(new ShelfCurrentLoansResponse(book, (int) difference_In_Time));
+//	            }
+	        }
+	        return shelfCurrentLoansResponses;
+	    }
 }
