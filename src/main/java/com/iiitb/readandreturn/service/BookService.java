@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iiitb.readandreturn.DAO.BookRepository;
 import com.iiitb.readandreturn.DAO.CheckoutRepository;
+import com.iiitb.readandreturn.DAO.HistoryRepository;
 import com.iiitb.readandreturn.entity.Book;
 import com.iiitb.readandreturn.entity.Checkout;
+import com.iiitb.readandreturn.entity.History;
 import com.iiitb.readandreturn.responsemodels.ShelfCurrentLoansResponse;
 
 @Service
@@ -28,6 +30,9 @@ public class BookService {
 	
 	@Autowired
 	private CheckoutRepository checkoutRepository;
+	
+	@Autowired
+	private HistoryRepository historyRepository;
 	
 	
 	public Book checkoutBook(String userEmail, Long bookId) throws Exception{
@@ -122,17 +127,17 @@ public class BookService {
 	        bookRepository.save(book.get());
 	        checkoutRepository.deleteById(validateCheckout.getId());
 
-//	        History history = new History(
-//	                userEmail,
-//	                validateCheckout.getCheckoutDate(),
-//	                LocalDate.now().toString(),
-//	                book.get().getTitle(),
-//	                book.get().getAuthor(),
-//	                book.get().getDescription(),
-//	                book.get().getImg()
-//	        );
-//
-//	        historyRepository.save(history);
+	        History history = new History(
+	                userEmail,
+	                validateCheckout.getCheckoutDate(),
+	                LocalDate.now().toString(),
+	                book.get().getTitle(),
+	                book.get().getAuthor(),
+	                book.get().getDescription(),
+	                book.get().getImg()
+	        );
+
+	        historyRepository.save(history);
 	    }
 	 
 	 public void renewLoan(String userEmail, Long bookId) throws Exception {
