@@ -9,5 +9,5 @@ import com.iiitb.readandreturn.entity.Message;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 	
-	Page<Message> findMessagesByEmail(@RequestParam("user_email") String userEmail, Pageable pagable);
+	Page<Message> findMessagesByUserEmail(@RequestParam("user_email") String userEmail, Pageable pagable);
 }
