@@ -22,7 +22,8 @@ public class SecurityConfiguration {
         http.authorizeRequests(configurer ->
                 configurer
                         .antMatchers("/api/books/secure/**"
-                        			,"/api/messages/secure/**")
+                        			,"/api/messages/secure/**",
+                        			"/api/admin/**")
                         .authenticated())
                 .oauth2ResourceServer()
                 .jwt();
