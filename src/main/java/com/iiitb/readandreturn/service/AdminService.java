@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iiitb.readandreturn.DAO.BookRepository;
+import com.iiitb.readandreturn.DAO.CheckoutRepository;
 import com.iiitb.readandreturn.entity.Book;
 import com.iiitb.readandreturn.requestmodels.AddBookRequest;
 
@@ -17,6 +18,9 @@ public class AdminService {
 	
 	@Autowired
 	private BookRepository bookRepo;
+	
+	@Autowired
+	private CheckoutRepository checkoutRepo;
 	
 	public void postBook(AddBookRequest addBookRequest) {
         Book book = new Book();
@@ -56,6 +60,18 @@ public class AdminService {
         book.get().setCopies(book.get().getCopies() - 1);
 
         bookRepo.save(book.get());
+    }
+	
+	public void deleteBook(Long bookId) throws Exception {
+
+        Optional<Book> book = bookRepo.findById(bookId);
+
+        if (!book.isPresent()) {
+            throw new Exception("Book not found");
+        }
+
+        bookRepo.delete(book.get());
+        checkoutRepo.deleteAllByBookId(bookId);
     }
 	
 }
