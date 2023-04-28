@@ -17,7 +17,7 @@ import com.iiitb.readandreturn.utils.ExtractJWT;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("https://localhost:3000")
 public class AdminController {
 
 	@Autowired

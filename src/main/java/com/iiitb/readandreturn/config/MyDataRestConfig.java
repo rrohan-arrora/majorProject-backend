@@ -13,7 +13,7 @@ import com.iiitb.readandreturn.entity.Review;
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
-    private String theAllowedOrigins = "http://localhost:3000";
+    private String theAllowedOrigins = "https://localhost:3000";
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,
@@ -48,3 +48,6 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                         httpMethods.disable(theUnsupportedActions));
     }
 }
+
+// in order to prevent the chrome browser from showing warning related to untrusted https request
+// go to chrom://flags > search localhost > enable
