@@ -1,5 +1,7 @@
 package com.iiitb.readandreturn.service;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,34 @@ public class AdminService {
         book.setCategory(addBookRequest.getCategory());
         book.setImg(addBookRequest.getImg());
         bookRepo.save(book);
+    }
+	
+	public void increaseBookQuantity(Long bookId) throws Exception {
+
+        Optional<Book> book = bookRepo.findById(bookId);
+
+        if (!book.isPresent()) {
+            throw new Exception("Book not found");
+        }
+
+        book.get().setCopiesAvailable(book.get().getCopiesAvailable() + 1);
+        book.get().setCopies(book.get().getCopies() + 1);
+
+        bookRepo.save(book.get());
+    }
+	
+	public void decreaseBookQuantity(Long bookId) throws Exception {
+
+        Optional<Book> book = bookRepo.findById(bookId);
+
+        if (!book.isPresent() || book.get().getCopiesAvailable() <= 0 || book.get().getCopies() <= 0) {
+            throw new Exception("Book not found or quantity locked");
+        }
+
+        book.get().setCopiesAvailable(book.get().getCopiesAvailable() - 1);
+        book.get().setCopies(book.get().getCopies() - 1);
+
+        bookRepo.save(book.get());
     }
 	
 }
