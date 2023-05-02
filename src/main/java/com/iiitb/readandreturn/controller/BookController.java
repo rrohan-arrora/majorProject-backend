@@ -18,7 +18,7 @@ import com.iiitb.readandreturn.service.BookService;
 import com.iiitb.readandreturn.utils.ExtractJWT;
 
 @RestController
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/books")
 public class BookController {
 	

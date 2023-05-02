@@ -14,7 +14,7 @@ import com.iiitb.readandreturn.requestmodels.AdminQuestionRequest;
 import com.iiitb.readandreturn.service.MessageService;
 import com.iiitb.readandreturn.utils.ExtractJWT;
 
-@CrossOrigin("https://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api/messages")
 public class MessagesController {
