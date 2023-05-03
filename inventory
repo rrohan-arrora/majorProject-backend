@@ -1,2 +1,2 @@
 [rohan-aakash]
-172.16.143.255 ansible_user=mac ansible_pass=rohan@11
+172.16.143.255 ansible_user=mac
