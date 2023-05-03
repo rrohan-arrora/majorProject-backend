@@ -1,0 +1,50 @@
+version: '3'
+services:
+  mysql-service:
+    image: mysql:5.7
+    container_name: mysql-service
+    restart: always
+    networks:
+      - app-network
+    environment:
+      MYSQL_DATABASE: react-library-database
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+      MYSQL_ROOT_PASSWORD: root@123
+    ports:
+      - "3307:3306"
+    volumes:
+      - /home/aakash/Desktop/MAJOR-PROJECT/mysql-data:/var/lib/mysql
+
+  backend-app:
+    image: "rohanarora11/backend-app"
+    container_name: backend-app
+    restart: always
+    networks:
+      - app-network
+    environment:
+      MYSQL_URL: jdbc:mysql://mysql-service:3306/react-library-database?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      MYSQL_NAME: root
+      MYSQL_PASSWORD: root@123
+    ports:
+      - "1111:1111"
+    depends_on:
+      - mysql-service
+
+  frontend-app:
+    image: "rohanarora11/frontend-app"
+    container_name: frontend-app
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend-app
+    
+networks:
+  app-network:
+    driver: bridge
+
+# volumes:
+#   db-data
