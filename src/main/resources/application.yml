@@ -1,44 +1,44 @@
-okta:
-    oauth2:
-        client-id: 0oa96xwubvWP38hOP5d7
-        issuer: https://dev-35898807.okta.com/oauth2/default
-server:
-    port: 1111
+# okta:
+#     oauth2:
+#         client-id: 0oa96xwubvWP38hOP5d7
+#         issuer: https://dev-35898807.okta.com/oauth2/default
+# server:
+#     port: 1111
 
-spring:
-  profilies:
-    active: "stage"
----
-spring:
-  config:
-    activate:
-      on-profile: "dev"
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${MYSQL_NAME}
-    url: ${MYSQL_URL}
-    password: ${MYSQL_PASSWORD}
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-  data:
-    rest:
-      base-path: /api
----
-spring:
-  config:
-    activate:
-      on-profile: "stage"
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    url: jdbc:mysql://localhost:3306/react-library-database?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    password: mysql
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-  data:
-    rest:
-      base-path: /api
+# spring:
+#   profiles:
+#     active: "dev"
+# ---
+# spring:
+#   config:
+#     activate:
+#       on-profile: "dev"
+#   datasource:
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     username: ${MYSQL_NAME}
+#     url: ${MYSQL_URL}
+#     password: ${MYSQL_PASSWORD}
+#   jpa:
+#     properties:
+#       hibernate:
+#         dialect: org.hibernate.dialect.MySQL8Dialect
+#   data:
+#     rest:
+#       base-path: /api
+# ---
+# spring:
+#   config:
+#     activate:
+#       on-profile: "stage"
+#   datasource:
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     username: root
+#     url: jdbc:mysql://localhost:3306/react-library-database?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=UTC
+#     password: mysql
+#   jpa:
+#     properties:
+#       hibernate:
+#         dialect: org.hibernate.dialect.MySQL8Dialect
+#   data:
+#     rest:
+#       base-path: /api

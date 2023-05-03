@@ -8,16 +8,14 @@ services:
       - app-network
     environment:
       MYSQL_DATABASE: react-library-database
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
       MYSQL_ROOT_PASSWORD: root@123
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - /home/aakash/Desktop/MAJOR-PROJECT/mysql-data:/var/lib/mysql
+      - /Users/mac/Documents/major project/backend/readandreturn/mysql-data:/var/lib/mysql
 
   backend-app:
-    image: "rohanarora11/backend-app"
+    image: "backend-app"
     container_name: backend-app
     restart: always
     networks:
