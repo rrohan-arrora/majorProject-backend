@@ -10,8 +10,8 @@ public class OktaSignInTest {
         oktaApiClient oktaApiClient = new OktaApiClient("localhost:3000", "0oa96xwubvWP38hOP5d7");
 
         // Sign in with valid credentials
-        String username = "user@example.com";
-        String password = "password";
+        String username = "testuser@email.com";
+        String password = "test1234!";
         signInResponse signInResponse = oktaApiClient.signIn(username, password);
 
         // Verify successful sign-in
