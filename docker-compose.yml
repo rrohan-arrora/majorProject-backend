@@ -2,12 +2,12 @@ version: '3'
 services:
   mysql-service:
     image: mysql:5.7
-    container_name: mysql-service
+    container_name: MYSQL_CONTAINER
     restart: always
     networks:
       - app-network
     environment:
-      MYSQL_DATABASE: react-library-database
+      MYSQL_DATABASE: MYSQL_DATABASE
       MYSQL_ROOT_PASSWORD: root@123
     ports:
       - "3306:3306"
@@ -16,7 +16,7 @@ services:
 
   backend-app:
     image: "backend-app"
-    container_name: backend-app
+    container_name: BACKEND_CONTAINER
     restart: always
     networks:
       - app-network
@@ -31,7 +31,7 @@ services:
 
   frontend-app:
     image: "rohanarora11/frontend-app"
-    container_name: frontend-app
+    container_name: FRONTEND_CONTAINER
     restart: always
     networks:
       - app-network
